@@ -1,0 +1,20 @@
+version: "3"
+services: 
+  nginx:
+    image: openresty/openresty:alpine
+    ports:
+    - "8080:80"
+  alpine:
+    build: 
+      context: ./debug
+      dockerfile: Dockerfile
+    image: dalongrong/alpine-strace
+    pid: "host"
+    cap_add: 
+    - ALL
+  caddy:
+    build: ./
+    image: dalongrong/caddy
+    command: /caddy
+    ports: 
+    - "2015:2015"
